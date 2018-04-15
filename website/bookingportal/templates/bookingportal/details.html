@@ -1,0 +1,37 @@
+{% extends 'bookingportal/base.html' %}
+
+{% block content %}
+<div class="container jumbotron">
+  <button onclick="window.location='{% url 'index' %}'" class="btn btn-default">Go Back</button>
+  <hr />
+  <h1>{{ entry.field_name }}</h1>
+  <hr />
+  <h5>{{ entry.date }}</h5>
+  <h5>{{ entry.slot }}</h5>
+
+  <h4>Application Status:
+    {%if entry.approvedby_chairman and entry.approvedby_ca %}
+    Approved
+    {% else %}
+    pending...
+    {% endif %}
+  </h4>
+
+  <h5>Concerned Authority:
+    {%if entry.approvedby_ca %}
+    Approved
+    {% else %}
+    pending...
+    {% endif %}
+  </h5>
+
+  <h5>Chairman:
+    {%if entry.approvedby_chairman %}
+    Approved
+    {% else %}
+    pending...
+    {% endif %}
+  </h5>
+  <p>{{ entry.description }}</p>
+</div>
+{% endblock %}

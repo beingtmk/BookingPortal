@@ -1,0 +1,48 @@
+{% extends 'bookingportal/base.html' %}
+{% block content %}
+<div class="container form-group">
+  <br />
+  <div class="row">
+    <div class="col-lg-6">
+      <h1>Submit A New Request!</h1>
+    </div>
+    <div class="col-lg-6">
+      <button onclick="window.location='{% url 'calendar' %}'"type="button" class="btn btn-success">Go Back</button>
+    </div>
+  </div>
+  <form method="POST">
+    {% csrf_token %}
+
+    <label>Field Name</label>
+    <select name="field_name">
+      {% for choice in form.field_name.field.choices %}
+      <option value="{{ choice.0 }}">{{ choice.0 }}</option>
+      {% endfor %}
+    </select>
+
+    <br />
+
+    <label>Date</label>
+    <input placeholder="YY-MM-DD" name="date" class="form-control" />
+
+    <br />
+
+    <label>Slot</label>
+    <select name="slot">
+      {% for choice in form.slot.field.choices %}
+      <option value="{{ choice.0 }}">{{ choice.0 }}</option>
+      {% endfor %}
+    </select>
+
+    <br />
+    <br/>
+
+    <label>Description</label>
+    <input placeholder="Description" name="description" class="form-control" />
+
+    <br />
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+
+{% endblock %}

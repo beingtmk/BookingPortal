@@ -1,0 +1,40 @@
+{% extends 'bookingportal/base.html' %}
+{% block content %}
+<div class="container">
+  <br />
+  <div class="row">
+    <div class="col-lg-4">
+      <h1>Sports Ground Field Booking</h1>
+      {% if request.user.is_authenticated %}
+        <span>Hello, {{ request.user.username }}</span>
+        <a href="/logout">Logout</a>
+      {% endif %}
+    </div>
+    <div class="col-lg-8">
+      <button onclick="window.location='{% url 'add' %}'" type="button" class="btn btn-success">Add Entry</button>
+    </div>
+  </div>
+  <hr />
+  <h2> Approved Requests <h2>
+    <hr>
+  <div class="row">
+    {% for entry in entries %}
+      {% if entry.approvedby_ca and entry.approvedby_chairman %}
+        {% include 'bookingportal/_calendar_entry.html' %}
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <br/>
+  <br/>
+  <h2> Pending Requests <h2>
+    <hr>
+  <div class="row">
+    {% for entry in entries %}
+      {% if not entry.approvedby_ca and not entry.approvedby_chairman %}
+        {% include 'bookingportal/_calendar_entry.html' %}
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
